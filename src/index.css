@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 7%;
+    --foreground: 210 20% 90%;
+
+    --card: 220 18% 10%;
+    --card-foreground: 210 20% 90%;
+
+    --popover: 220 18% 10%;
+    --popover-foreground: 210 20% 90%;
+
+    --primary: 205 100% 50%;
+    --primary-foreground: 220 20% 7%;
+
+    --secondary: 160 100% 50%;
+    --secondary-foreground: 220 20% 7%;
+
+    --muted: 220 15% 15%;
+    --muted-foreground: 215 15% 55%;
+
+    --accent: 38 100% 50%;
+    --accent-foreground: 220 20% 7%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 15% 18%;
+    --input: 220 15% 15%;
+    --ring: 205 100% 50%;
+
+    --radius: 0.75rem;
+
+    --glow-primary: 205 100% 50%;
+    --glow-secondary: 160 100% 50%;
+
+    --sidebar-background: 220 18% 10%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-primary: 205 100% 50%;
+    --sidebar-primary-foreground: 220 20% 7%;
+    --sidebar-accent: 220 15% 15%;
+    --sidebar-accent-foreground: 210 20% 90%;
+    --sidebar-border: 220 15% 18%;
+    --sidebar-ring: 205 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-mono-code {
+    font-family: 'Fira Code', 'Courier New', monospace;
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 15px -3px hsl(var(--glow-primary) / 0.3),
+                0 0 30px -6px hsl(var(--glow-primary) / 0.15);
+  }
+
+  .glow-secondary {
+    box-shadow: 0 0 15px -3px hsl(var(--glow-secondary) / 0.3),
+                0 0 30px -6px hsl(var(--glow-secondary) / 0.15);
+  }
+
+  .glow-primary-hover:hover {
+    box-shadow: 0 0 20px -3px hsl(var(--glow-primary) / 0.4),
+                0 0 40px -6px hsl(var(--glow-primary) / 0.2);
+  }
+
+  .glow-secondary-hover:hover {
+    box-shadow: 0 0 20px -3px hsl(var(--glow-secondary) / 0.4),
+                0 0 40px -6px hsl(var(--glow-secondary) / 0.2);
+  }
+
+  .binary-watermark {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Ctext fill='%23ffffff08' font-family='Fira Code,monospace' font-size='14'%3E%3Ctspan x='10' y='20'%3E01001010 11001101%3C/tspan%3E%3Ctspan x='30' y='50'%3E10110100 01010110%3C/tspan%3E%3Ctspan x='5' y='80'%3E11100010 00101011%3C/tspan%3E%3Ctspan x='40' y='110'%3E01011010 11010001%3C/tspan%3E%3Ctspan x='15' y='140'%3E10001101 01101110%3C/tspan%3E%3Ctspan x='50' y='170'%3E01110100 10011010%3C/tspan%3E%3Ctspan x='20' y='200'%3E11001011 01010101%3C/tspan%3E%3Ctspan x='35' y='230'%3E00101110 11100011%3C/tspan%3E%3Ctspan x='10' y='260'%3E10110001 01001101%3C/tspan%3E%3Ctspan x='45' y='290'%3E01010110 10110100%3C/tspan%3E%3Ctspan x='25' y='320'%3E11010010 00101011%3C/tspan%3E%3Ctspan x='5' y='350'%3E01101110 11001010%3C/tspan%3E%3Ctspan x='40' y='380'%3E10011010 01110100%3C/tspan%3E%3C/text%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
