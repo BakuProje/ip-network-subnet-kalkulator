@@ -152,33 +152,36 @@ const BinaryConverter = () => {
                       <p className="text-muted-foreground">Cara mengubah <span className="text-primary font-mono">{binInput}</span> (biner) ke desimal:</p>
                       
                       {/* Formula */}
-                      <div className="bg-muted/30 rounded p-2 font-mono text-[10px] overflow-x-auto">
-                        <div className="whitespace-nowrap">
+                      <div className="bg-muted/30 rounded p-3 font-mono overflow-x-auto">
+                        <div className="whitespace-nowrap text-sm leading-relaxed">
                           {binToDecSteps.steps.map((s, i) => (
-                            <span key={i}>
-                              {s.calculation}
-                              {i < binToDecSteps.steps.length - 1 ? " + " : ""}
+                            <span key={i} className="inline-block">
+                              <span className="text-foreground">{s.calculation}</span>
+                              {i < binToDecSteps.steps.length - 1 && <span className="text-muted-foreground"> + </span>}
                             </span>
                           ))}
                         </div>
-                        <div className="whitespace-nowrap mt-1">
-                          = {binToDecSteps.steps.map((s, i) => (
-                            <span key={i}>
-                              {s.expanded}
-                              {i < binToDecSteps.steps.length - 1 ? " + " : ""}
+                        <div className="whitespace-nowrap mt-2 text-sm leading-relaxed">
+                          <span className="text-muted-foreground">= </span>
+                          {binToDecSteps.steps.map((s, i) => (
+                            <span key={i} className="inline-block">
+                              <span className="text-foreground">{s.expanded}</span>
+                              {i < binToDecSteps.steps.length - 1 && <span className="text-muted-foreground"> + </span>}
                             </span>
                           ))}
                         </div>
-                        <div className="whitespace-nowrap mt-1">
-                          = {binToDecSteps.steps.map((s, i) => (
-                            <span key={i}>
-                              {s.value}
-                              {i < binToDecSteps.steps.length - 1 ? " + " : ""}
+                        <div className="whitespace-nowrap mt-2 text-sm leading-relaxed">
+                          <span className="text-muted-foreground">= </span>
+                          {binToDecSteps.steps.map((s, i) => (
+                            <span key={i} className="inline-block">
+                              <span className="text-accent font-semibold">{s.value}</span>
+                              {i < binToDecSteps.steps.length - 1 && <span className="text-muted-foreground"> + </span>}
                             </span>
                           ))}
                         </div>
-                        <div className="mt-1 text-secondary font-bold">
-                          = {binToDecSteps.total}
+                        <div className="mt-2 text-base font-bold border-t border-border/30 pt-2">
+                          <span className="text-muted-foreground">= </span>
+                          <span className="text-secondary">{binToDecSteps.total}</span>
                         </div>
                       </div>
                     </div>

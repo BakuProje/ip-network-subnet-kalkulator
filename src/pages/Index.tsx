@@ -8,6 +8,11 @@ import BinaryVisual from "@/components/BinaryVisual";
 import SubnettingTable from "@/components/SubnettingTable";
 import BinaryConverter from "@/components/BinaryConverter";
 import CIDRReferenceTable from "@/components/CIDRReferenceTable";
+import IPClassRanges from "@/components/IPClassRanges";
+import PrivatePublicChecker from "@/components/PrivatePublicChecker";
+import IPToBinaryConverter from "@/components/IPToBinaryConverter";
+import SubnetCalculator from "@/components/SubnetCalculator";
+import NetworkPlanningTool from "@/components/NetworkPlanningTool";
 import logo from "@/galery/LOGO KZ.png";
 
 const Index = () => {
@@ -138,6 +143,26 @@ const Index = () => {
         {/* Binary/Decimal Converter — always visible */}
         <div className="mt-10">
           <BinaryConverter />
+        </div>
+
+        {/* Tools Section */}
+        <div className="mt-10">
+          <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+            <Zap className="w-5 h-5 text-accent" />
+            Tools Tambahan
+          </h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <PrivatePublicChecker />
+            <IPToBinaryConverter />
+            <SubnetCalculator />
+            <NetworkPlanningTool />
+          </div>
+        </div>
+
+        {/* IP Class Ranges — always visible */}
+        <div className="mt-10">
+          <IPClassRanges />
         </div>
       </main>
 
