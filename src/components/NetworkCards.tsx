@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-import { Globe, Shield, Wifi, Router, Hash, Server, Users, Cable, Tag, Layers } from "lucide-react";
 import type { IPInfo } from "@/lib/subnet";
 
 interface Props {
@@ -7,7 +5,6 @@ interface Props {
 }
 
 const cardData = (info: IPInfo) => {
-  // Tentukan subnet mask default berdasarkan kelas
   const getDefaultSubnetMask = (ipClass: string) => {
     switch (ipClass) {
       case "A":
@@ -28,62 +25,46 @@ const cardData = (info: IPInfo) => {
   const defaultSubnetMask = getDefaultSubnetMask(info.ipClass);
 
   return [
-    { label: "Alamat IP", value: info.ip, icon: Globe, color: "primary" },
-    { label: "Kelas IP", value: `Kelas ${info.ipClass}`, desc: info.classDescription, icon: Tag, color: "accent" },
-    { label: "Netmask", value: info.netmask, icon: Shield, color: "primary" },
-    { label: "Subnet Mask Default", value: defaultSubnetMask, desc: `Default untuk Kelas ${info.ipClass}`, icon: Shield, color: "primary" },
-    { label: "Wildcard Mask", value: info.wildcard, icon: Wifi, color: "secondary" },
-    { label: "Network Address", value: info.networkAddress, icon: Router, color: "primary" },
-    { label: "Broadcast Address", value: info.broadcastAddress, icon: Layers, color: "accent" },
-    { label: "Range IP Valid", value: `${info.firstHost} — ${info.lastHost}`, icon: Cable, color: "secondary" },
-    { label: "Jumlah Host Total", value: info.totalHosts.toLocaleString(), icon: Server, color: "primary" },
-    { label: "Jumlah Host Valid / Client", value: info.validHosts.toLocaleString(), icon: Users, color: "secondary" },
-    { label: "Notasi CIDR", value: `/${info.cidr}`, icon: Hash, color: "accent" },
+    { label: "Alamat IP", value: info.ip, badgeColor: "bg-blue-600 text-white" },
+    { label: "Kelas IP", value: `Kelas ${info.ipClass}`, desc: info.classDescription, badgeColor: "bg-purple-600 text-white" },
+    { label: "Netmask", value: info.netmask, badgeColor: "bg-blue-600 text-white" },
+    { label: "Subnet Mask Default", value: defaultSubnetMask, desc: `Default Kelas ${info.ipClass}`, badgeColor: "bg-emerald-600 text-white" },
+    { label: "Wildcard Mask", value: info.wildcard, badgeColor: "bg-purple-600 text-white" },
+    { label: "Network Address", value: info.networkAddress, badgeColor: "bg-blue-600 text-white" },
+    { label: "Broadcast Address", value: info.broadcastAddress, badgeColor: "bg-amber-500 text-white" },
+    { label: "Range IP Valid", value: `${info.firstHost} — ${info.lastHost}`, badgeColor: "bg-emerald-600 text-white" },
+    { label: "Jumlah Host Total", value: info.totalHosts.toLocaleString(), badgeColor: "bg-blue-600 text-white" },
+    { label: "Jumlah Host Valid / Client", value: info.validHosts.toLocaleString(), badgeColor: "bg-emerald-600 text-white" },
+    { label: "Notasi CIDR", value: `/${info.cidr}`, badgeColor: "bg-amber-500 text-white" },
   ];
-};
-
-const colorMap: Record<string, string> = {
-  primary: "text-primary border-primary/20 bg-primary/5",
-  secondary: "text-secondary border-secondary/20 bg-secondary/5",
-  accent: "text-accent border-accent/20 bg-accent/5",
-};
-
-const glowMap: Record<string, string> = {
-  primary: "glow-primary-hover",
-  secondary: "glow-secondary-hover",
-  accent: "glow-secondary-hover",
 };
 
 const NetworkCards = ({ info }: Props) => {
   const cards = cardData(info);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      {cards.map((card, i) => {
-        const Icon = card.icon;
-        return (
-          <motion.div
-            key={card.label}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
-            className={`rounded-xl border bg-card p-4 transition-all duration-300 ${glowMap[card.color]} hover:border-opacity-60`}
-          >
-            <div className="flex items-start gap-3">
-              <div className={`p-2 rounded-lg ${colorMap[card.color]}`}>
-                <Icon className="w-4 h-4" />
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-xs text-muted-foreground mb-0.5">{card.label}</p>
-                <p className="font-mono text-sm font-semibold text-foreground truncate">{card.value}</p>
-                {card.desc && (
-                  <p className="text-xs text-muted-foreground mt-1">{card.desc}</p>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        );
-      })}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+      {cards.map((card) => (
+        <div
+          key={card.label}
+          className="rounded-2xl border-2 border-slate-900 bg-white p-4 shadow-[3px_3px_0px_0px_#0f172a] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-transform"
+        >
+          <div className="flex items-center justify-between mb-1.5">
+            <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">
+              {card.label}
+            </p>
+            <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold ${card.badgeColor} border border-slate-900`}>
+              OK
+            </span>
+          </div>
+          <p className="font-mono text-sm font-black text-slate-900 truncate">
+            {card.value}
+          </p>
+          {card.desc && (
+            <p className="text-[11px] text-slate-500 font-medium mt-1">{card.desc}</p>
+          )}
+        </div>
+      ))}
     </div>
   );
 };

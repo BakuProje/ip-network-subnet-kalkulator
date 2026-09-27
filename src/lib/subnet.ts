@@ -141,3 +141,44 @@ export function decimalToBinary(dec: number): string | null {
   if (isNaN(dec) || dec < 0) return null;
   return dec.toString(2);
 }
+
+export function decimalToOctal(dec: number): string | null {
+  if (isNaN(dec) || dec < 0) return null;
+  return dec.toString(8);
+}
+
+export function octalToDecimal(oct: string): number | null {
+  if (!/^[0-7]+$/.test(oct)) return null;
+  return parseInt(oct, 8);
+}
+
+export function decimalToHex(dec: number): string | null {
+  if (isNaN(dec) || dec < 0) return null;
+  return dec.toString(16).toUpperCase();
+}
+
+export function hexToDecimal(hex: string): number | null {
+  if (!/^[0-9A-Fa-f]+$/.test(hex)) return null;
+  return parseInt(hex, 16);
+}
+
+export function binaryToOctal(bin: string): string | null {
+  const dec = binaryToDecimal(bin);
+  return dec !== null ? decimalToOctal(dec) : null;
+}
+
+export function octalToBinary(oct: string): string | null {
+  const dec = octalToDecimal(oct);
+  return dec !== null ? decimalToBinary(dec) : null;
+}
+
+export function binaryToHex(bin: string): string | null {
+  const dec = binaryToDecimal(bin);
+  return dec !== null ? decimalToHex(dec) : null;
+}
+
+export function hexToBinary(hex: string): string | null {
+  const dec = hexToDecimal(hex);
+  return dec !== null ? decimalToBinary(dec) : null;
+}
+

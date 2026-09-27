@@ -64,90 +64,29 @@ interface Props {
 
 const CIDRReferenceTable = ({ ipClass }: Props) => {
   const [expanded, setExpanded] = useState(false);
-
   const rows = cidrDataByClass[ipClass] || [];
 
-  // Tentukan nama kolom berdasarkan kelas
-  const getColumnHeaders = () => {
-    if (ipClass === "A") {
-      return {
-        col3: "Jumlah Subnet",
-        col4: "Total Host per Subnet",
-      };
-    } else if (ipClass === "B") {
-      return {
-        col3: "Jumlah Subnet",
-        col4: "Host Valid",
-      };
-    } else if (ipClass === "C") {
-      return {
-        col3: "Jumlah Subnet",
-        col4: "Host/Subnet",
-      };
-    } else {
-      return {
-        col3: "Type",
-        col4: "Range",
-      };
-    }
-  };
-
-  const headers = getColumnHeaders();
-
-  // Tentukan subnet mask default dan keterangan
-  const getClassInfo = () => {
-    if (ipClass === "A") {
-      return {
-        defaultMask: "255.0.0.0",
-        description: `${rows.length} notasi CIDR`,
-      };
-    } else if (ipClass === "B") {
-      return {
-        defaultMask: "255.255.0.0",
-        description: `${rows.length} notasi CIDR`,
-      };
-    } else if (ipClass === "C") {
-      return {
-        defaultMask: "255.255.255.0",
-        description: `${rows.length} notasi CIDR`,
-      };
-    } else if (ipClass === "D") {
-      return {
-        defaultMask: null,
-        description: "Multicast Address",
-      };
-    } else if (ipClass === "E") {
-      return {
-        defaultMask: null,
-        description: "Reserved Address",
-      };
-    } else {
-      return {
-        defaultMask: null,
-        description: "",
-      };
-    }
-  };
-
-  const classInfo = getClassInfo();
-
   return (
-    <div className="rounded-xl border border-border bg-card overflow-hidden">
+    <div className="neo-box bg-white overflow-hidden">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between px-5 py-4 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 hover:from-primary/15 hover:via-secondary/15 hover:to-accent/15 transition-colors"
+        className="w-full flex items-center justify-between p-4 sm:p-5 bg-white hover:bg-slate-50 transition-colors border-b-2 border-slate-900 text-left"
       >
-        <div className="flex items-center gap-2">
-          <BookOpen className="w-5 h-5 text-primary" />
-          <div className="text-left">
-            <h3 className="font-bold text-foreground">Tabel Referensi CIDR Kelas {ipClass}</h3>
-            <p className="text-xs text-muted-foreground">
-              {classInfo.description}
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-purple-600 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] flex items-center justify-center text-white shrink-0">
+            <BookOpen className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="text-base font-black text-slate-900 tracking-tight">
+              Tabel Referensi CIDR Kelas {ipClass}
+            </h3>
+            <p className="text-xs text-slate-500 font-medium">
+              {rows.length} notasi CIDR dan pembagian subnet
             </p>
           </div>
         </div>
         <ChevronDown
-          className={`w-4 h-4 text-muted-foreground transition-transform ${expanded ? "rotate-180" : ""}`}
+          className={`w-5 h-5 text-slate-900 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
         />
       </button>
 
@@ -157,33 +96,27 @@ const CIDRReferenceTable = ({ ipClass }: Props) => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="overflow-x-auto">
-              <table className="w-full text-xs font-mono">
+            <div className="p-4 overflow-x-auto">
+              <table className="w-full text-xs font-mono border-2 border-slate-900 rounded-xl overflow-hidden">
                 <thead>
-                  <tr className="bg-muted/30 border-t border-border">
-                    <th className="px-4 py-3 text-left text-muted-foreground font-semibold">CIDR</th>
-                    <th className="px-4 py-3 text-left text-muted-foreground font-semibold">Subnet Mask</th>
-                    <th className="px-4 py-3 text-left text-muted-foreground font-semibold">{headers.col3}</th>
-                    <th className="px-4 py-3 text-left text-muted-foreground font-semibold">{headers.col4}</th>
+                  <tr className="bg-slate-100 border-b-2 border-slate-900 text-slate-900 font-bold">
+                    <th className="px-4 py-2.5 text-left">CIDR</th>
+                    <th className="px-4 py-2.5 text-left">Subnet Mask</th>
+                    <th className="px-4 py-2.5 text-left">Jumlah Subnet</th>
+                    <th className="px-4 py-2.5 text-left">Total Host</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {rows.map((row, idx) => (
-                    <motion.tr
-                      key={row.cidr}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.03 }}
-                      className="border-t border-border/50 hover:bg-muted/20 transition-colors"
-                    >
-                      <td className="px-4 py-2.5 text-primary font-bold">{row.cidr}</td>
-                      <td className="px-4 py-2.5 text-foreground">{row.subnetMask}</td>
-                      <td className="px-4 py-2.5 text-accent">{row.jumlahSubnet}</td>
-                      <td className="px-4 py-2.5 text-secondary">{row.hostPerSubnet}</td>
-                    </motion.tr>
+                <tbody className="divide-y border-slate-200">
+                  {rows.map((row) => (
+                    <tr key={row.cidr} className="hover:bg-slate-50">
+                      <td className="px-4 py-2 text-blue-700 font-bold">{row.cidr}</td>
+                      <td className="px-4 py-2 text-slate-900">{row.subnetMask}</td>
+                      <td className="px-4 py-2 text-purple-700 font-bold">{row.jumlahSubnet}</td>
+                      <td className="px-4 py-2 text-emerald-700 font-bold">{row.hostPerSubnet}</td>
+                    </tr>
                   ))}
                 </tbody>
               </table>

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Shield, Globe, AlertCircle } from "lucide-react";
 
 const PrivatePublicChecker = () => {
   const [ipInput, setIpInput] = useState("");
@@ -22,9 +21,8 @@ const PrivatePublicChecker = () => {
       return;
     }
 
-    const [a, b, c, d] = parts;
+    const [a, b] = parts;
 
-    // Private ranges
     if (a === 10) {
       setResult({
         type: "private",
@@ -47,88 +45,79 @@ const PrivatePublicChecker = () => {
       setResult({
         type: "special",
         range: "127.0.0.0 - 127.255.255.255",
-        description: "Loopback Address - Untuk testing lokal"
+        description: "Loopback Address - Pengujian lokal (localhost)"
       });
     } else if (a === 169 && b === 254) {
       setResult({
         type: "special",
         range: "169.254.0.0 - 169.254.255.255",
-        description: "Link-Local Address - Untuk auto-configuration"
+        description: "Link-Local (APIPA) - Auto-konfigurasi"
       });
     } else if (a >= 224 && a <= 239) {
       setResult({
         type: "special",
         range: "224.0.0.0 - 239.255.255.255",
-        description: "Multicast Address - Untuk komunikasi grup"
+        description: "Multicast Address - Komunikasi grup"
       });
     } else if (a >= 240) {
       setResult({
         type: "special",
         range: "240.0.0.0 - 255.255.255.255",
-        description: "Reserved Address - Untuk penggunaan masa depan"
+        description: "Reserved Address - Penggunaan masa depan"
       });
     } else {
       setResult({
         type: "public",
-        range: "Public IP Range",
-        description: "IP Address publik - Dapat diakses dari internet"
+        range: "Public IP Range (Internet Global)",
+        description: "IP Address Publik - Dapat diakses secara global di internet"
       });
     }
   };
 
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
-      <h3 className="text-sm font-semibold text-foreground mb-4">Private vs Public IP Checker</h3>
+    <div className="rounded-xl border border-neutral-200 bg-white p-5 space-y-3.5 shadow-2xs">
+      <div className="flex items-center justify-between pb-2 border-b border-neutral-100">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
+          Pengecek IP Publik vs Privat
+        </h3>
+      </div>
 
       <div className="space-y-3">
-        <input
-          type="text"
-          value={ipInput}
-          onChange={(e) => {
-            setIpInput(e.target.value);
-            checkIP(e.target.value);
-          }}
-          placeholder="Contoh: 192.168.1.1"
-          className="w-full bg-muted/50 border border-border rounded-lg px-3 py-2 font-mono text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-        />
+        <div>
+          <label className="text-xs text-neutral-500 font-medium mb-1 block">
+            Alamat IP untuk Dicek:
+          </label>
+          <input
+            type="text"
+            value={ipInput}
+            onChange={(e) => {
+              setIpInput(e.target.value);
+              checkIP(e.target.value);
+            }}
+            placeholder="Contoh: 192.168.1.1 atau 8.8.8.8"
+            className="w-full bg-neutral-50 border border-neutral-300 rounded-md px-3 py-2 font-mono text-sm text-neutral-900 placeholder:text-neutral-400 focus:bg-white focus:outline-none focus:border-neutral-900 transition-all"
+          />
+        </div>
 
         <AnimatePresence>
           {result && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className={`rounded-lg p-3 border ${
-                result.type === "private"
-                  ? "bg-blue-500/10 border-blue-500/30"
-                  : result.type === "public"
-                  ? "bg-green-500/10 border-green-500/30"
-                  : "bg-yellow-500/10 border-yellow-500/30"
-              }`}
+              exit={{ opacity: 0, y: -5 }}
+              className="rounded-lg p-3.5 border border-neutral-200 bg-neutral-50 text-neutral-900 space-y-1"
             >
-              <div className="flex items-center gap-2 mb-2">
-                {result.type === "private" ? (
-                  <Shield className="w-4 h-4 text-blue-500" />
-                ) : result.type === "public" ? (
-                  <Globe className="w-4 h-4 text-green-500" />
-                ) : (
-                  <AlertCircle className="w-4 h-4 text-yellow-500" />
-                )}
-                <span className={`text-sm font-semibold ${
-                  result.type === "private"
-                    ? "text-blue-500"
-                    : result.type === "public"
-                    ? "text-green-500"
-                    : "text-yellow-500"
-                }`}>
-                  {result.type === "private" ? "Private IP" : result.type === "public" ? "Public IP" : "Special IP"}
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-wider">
+                  {result.type === "private" ? "IP Private (Lokal)" : result.type === "public" ? "IP Public (Internet)" : "IP Khusus (Special/Reserved)"}
+                </span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-200 text-neutral-800">
+                  {result.type}
                 </span>
               </div>
 
-              <div className="space-y-1 text-xs">
-                <p className="text-muted-foreground font-mono">{result.range}</p>
-                <p className="text-muted-foreground">{result.description}</p>
-              </div>
+              <p className="font-mono text-xs font-semibold text-neutral-800 pt-0.5">{result.range}</p>
+              <p className="text-xs text-neutral-500">{result.description}</p>
             </motion.div>
           )}
         </AnimatePresence>

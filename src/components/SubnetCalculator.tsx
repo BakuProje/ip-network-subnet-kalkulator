@@ -30,14 +30,12 @@ const SubnetCalculator = () => {
 
     if (prefix < 0 || prefix > 30 || subnetsNeeded < 1) return;
 
-    // Calculate subnet mask
     const maskBits = 32 - prefix;
     const subnetBits = Math.ceil(Math.log2(subnetsNeeded));
     const newPrefix = prefix - subnetBits;
 
     if (newPrefix < 0) return;
 
-    // Generate subnets
     const subnets = [];
     const increment = Math.pow(2, maskBits + subnetBits);
 
@@ -64,7 +62,6 @@ const SubnetCalculator = () => {
       });
     }
 
-    // Calculate subnet mask
     const maskValue = (0xffffffff << (32 - newPrefix)) >>> 0;
     const subnetMask = [
       (maskValue >> 24) & 0xff,
@@ -81,23 +78,24 @@ const SubnetCalculator = () => {
   };
 
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
-      <h3 className="text-sm font-semibold text-foreground mb-4">Subnet Calculator</h3>
+    <div className="rounded-xl border border-neutral-200 bg-white p-5 space-y-3.5 shadow-2xs">
+      <div className="flex items-center justify-between pb-2 border-b border-neutral-100">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
+          Kalkulator Pembagian Subnet
+        </h3>
+      </div>
 
       <div className="space-y-3">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
           <input
             type="text"
             value={networkAddress}
             onChange={(e) => {
               setNetworkAddress(e.target.value);
-              // Reset hasil saat input dihapus
-              if (e.target.value === "") {
-                setResult(null);
-              }
+              if (e.target.value === "") setResult(null);
             }}
-            placeholder="Network Address"
-            className="bg-muted/50 border border-border rounded-lg px-3 py-2 font-mono text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+            placeholder="Network (192.168.1.0)"
+            className="bg-neutral-50 border border-neutral-300 rounded-md px-3 py-2 font-mono text-sm text-neutral-900 placeholder:text-neutral-400 focus:bg-white focus:outline-none focus:border-neutral-900 transition-all"
           />
           <input
             type="number"
@@ -105,8 +103,8 @@ const SubnetCalculator = () => {
             onChange={(e) => setPrefixLength(e.target.value)}
             min="0"
             max="30"
-            placeholder="Prefix (/24)"
-            className="bg-muted/50 border border-border rounded-lg px-3 py-2 font-mono text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+            placeholder="Prefix (24)"
+            className="bg-neutral-50 border border-neutral-300 rounded-md px-3 py-2 font-mono text-sm text-neutral-900 placeholder:text-neutral-400 focus:bg-white focus:outline-none focus:border-neutral-900 transition-all"
           />
           <input
             type="number"
@@ -114,14 +112,14 @@ const SubnetCalculator = () => {
             onChange={(e) => setNumSubnets(e.target.value)}
             min="1"
             max="256"
-            placeholder="Jumlah Subnet"
-            className="bg-muted/50 border border-border rounded-lg px-3 py-2 font-mono text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+            placeholder="Subnet (2)"
+            className="bg-neutral-50 border border-neutral-300 rounded-md px-3 py-2 font-mono text-sm text-neutral-900 placeholder:text-neutral-400 focus:bg-white focus:outline-none focus:border-neutral-900 transition-all"
           />
         </div>
 
         <button
           onClick={calculateSubnets}
-          className="w-full py-2 rounded-lg bg-primary/10 text-primary border border-primary/30 text-xs font-medium hover:bg-primary/20 transition-colors"
+          className="w-full py-2 rounded-md bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold transition-colors"
         >
           Hitung Subnet
         </button>
@@ -129,25 +127,25 @@ const SubnetCalculator = () => {
         <AnimatePresence>
           {result && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="space-y-3"
+              exit={{ opacity: 0, y: -5 }}
+              className="space-y-2.5 pt-1"
             >
-              <div className="bg-muted/30 rounded-lg p-3 border border-border/50">
-                <p className="text-xs text-muted-foreground mb-1">Subnet Mask:</p>
-                <p className="font-mono text-sm text-primary font-semibold">{result.subnetMask}</p>
+              <div className="bg-neutral-50 rounded-lg p-2.5 border border-neutral-200 flex items-center justify-between">
+                <span className="text-xs text-neutral-600 font-medium">Subnet Mask Baru:</span>
+                <span className="font-mono text-xs text-neutral-900 font-bold">{result.subnetMask}</span>
               </div>
 
               <div>
                 <button
                   onClick={() => setShowSubnets(!showSubnets)}
-                  className="w-full flex items-center justify-between px-3 py-2 bg-muted/20 hover:bg-muted/30 rounded-lg transition-colors"
+                  className="w-full flex items-center justify-between px-3 py-2 bg-neutral-50 hover:bg-neutral-100 rounded-lg border border-neutral-200 transition-colors"
                 >
-                  <span className="text-xs font-medium text-foreground">
-                    Tampilkan {Math.min(10, result.totalSubnets)} dari {result.totalSubnets} Subnet
+                  <span className="text-xs font-semibold text-neutral-800">
+                    Daftar {Math.min(10, result.totalSubnets)} dari {result.totalSubnets} Subnet
                   </span>
-                  <ChevronDown className={`w-3 h-3 transition-transform ${showSubnets ? "rotate-180" : ""}`} />
+                  <ChevronDown className={`w-4 h-4 text-neutral-400 transition-transform ${showSubnets ? "rotate-180" : ""}`} />
                 </button>
 
                 <AnimatePresence>
@@ -158,26 +156,19 @@ const SubnetCalculator = () => {
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden mt-2"
                     >
-                      <div className="space-y-2 max-h-96 overflow-y-auto">
+                      <div className="space-y-1.5 max-h-72 overflow-y-auto pr-1">
                         {result.subnets.map((subnet, idx) => (
-                          <motion.div
+                          <div
                             key={idx}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: idx * 0.03 }}
-                            className="bg-card rounded-lg p-2 border border-border/50 text-xs space-y-1"
+                            className="bg-white rounded-lg p-2.5 border border-neutral-200 text-xs space-y-0.5"
                           >
-                            <p className="font-semibold text-foreground">Subnet {subnet.number}</p>
-                            <p className="font-mono text-muted-foreground">
-                              Network: <span className="text-primary">{subnet.networkAddress}</span>
-                            </p>
-                            <p className="font-mono text-muted-foreground">
-                              Range: <span className="text-secondary">{subnet.firstHost} - {subnet.lastHost}</span>
-                            </p>
-                            <p className="font-mono text-muted-foreground">
-                              Broadcast: <span className="text-accent">{subnet.broadcastAddress}</span>
-                            </p>
-                          </motion.div>
+                            <p className="font-bold text-neutral-900">Subnet {subnet.number}</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-1 font-mono text-[11px] text-neutral-600">
+                              <p>Net: <span className="text-neutral-900 font-medium">{subnet.networkAddress}</span></p>
+                              <p>Host: <span className="text-neutral-900 font-medium">{subnet.firstHost}–{subnet.lastHost}</span></p>
+                              <p>Bcast: <span className="text-neutral-900 font-medium">{subnet.broadcastAddress}</span></p>
+                            </div>
+                          </div>
                         ))}
                       </div>
                     </motion.div>

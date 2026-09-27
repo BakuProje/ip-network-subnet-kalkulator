@@ -21,7 +21,6 @@ const NetworkPlanningTool = () => {
     const hosts = parseInt(hostsNeeded);
     if (isNaN(hosts) || hosts < 1) return;
 
-    // Calculate required host bits
     let hostBits = 0;
     let totalHosts = 1;
 
@@ -33,7 +32,6 @@ const NetworkPlanningTool = () => {
     const cidr = 32 - hostBits;
     const usableHosts = totalHosts - 2;
 
-    // Calculate subnet mask
     const maskValue = (0xffffffff << hostBits) >>> 0;
     const subnetMask = [
       (maskValue >> 24) & 0xff,
@@ -44,11 +42,11 @@ const NetworkPlanningTool = () => {
 
     let recommendation = "";
     if (cidr >= 24) {
-      recommendation = "Gunakan Kelas C - Cocok untuk jaringan kecil/rumah";
+      recommendation = "Rekomendasi Kelas C — Cocok untuk jaringan skala kecil / LAN";
     } else if (cidr >= 16) {
-      recommendation = "Gunakan Kelas B - Cocok untuk jaringan menengah";
+      recommendation = "Rekomendasi Kelas B — Cocok untuk jaringan skala menengah / gedung";
     } else {
-      recommendation = "Gunakan Kelas A - Cocok untuk jaringan besar";
+      recommendation = "Rekomendasi Kelas A — Cocok untuk jaringan skala besar / enterprise";
     }
 
     setResult({
@@ -62,8 +60,12 @@ const NetworkPlanningTool = () => {
   };
 
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
-      <h3 className="text-sm font-semibold text-foreground mb-4">Network Planning Tool</h3>
+    <div className="rounded-xl border border-neutral-200 bg-white p-5 space-y-3.5 shadow-2xs">
+      <div className="flex items-center justify-between pb-2 border-b border-neutral-100">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
+          Perencanaan Kebutuhan Host
+        </h3>
+      </div>
 
       <div className="space-y-3">
         <div className="flex gap-2">
@@ -72,18 +74,15 @@ const NetworkPlanningTool = () => {
             value={hostsNeeded}
             onChange={(e) => {
               setHostsNeeded(e.target.value);
-              // Reset hasil saat input dihapus
-              if (e.target.value === "") {
-                setResult(null);
-              }
+              if (e.target.value === "") setResult(null);
             }}
             min="1"
-            placeholder="Jumlah host yang dibutuhkan"
-            className="flex-1 bg-muted/50 border border-border rounded-lg px-3 py-2 font-mono text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+            placeholder="Jumlah host yang dibutuhkan (misal: 50)"
+            className="flex-1 bg-neutral-50 border border-neutral-300 rounded-md px-3 py-2 font-mono text-sm text-neutral-900 placeholder:text-neutral-400 focus:bg-white focus:outline-none focus:border-neutral-900 transition-all"
           />
           <button
             onClick={calculateNetworkPlan}
-            className="px-4 py-2 rounded-lg bg-primary/10 text-primary border border-primary/30 text-xs font-medium hover:bg-primary/20 transition-colors"
+            className="px-4 py-2 rounded-md bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold transition-colors"
           >
             Hitung
           </button>
@@ -92,35 +91,35 @@ const NetworkPlanningTool = () => {
         <AnimatePresence>
           {result && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="space-y-2"
+              exit={{ opacity: 0, y: -5 }}
+              className="space-y-2.5"
             >
               <div className="grid grid-cols-2 gap-2">
-                <div className="bg-muted/30 rounded-lg p-3 border border-border/50">
-                  <p className="text-xs text-muted-foreground mb-1">Subnet Mask</p>
-                  <p className="font-mono text-sm text-primary font-semibold">{result.subnetMask}</p>
+                <div className="bg-neutral-50 rounded-lg p-2.5 border border-neutral-200">
+                  <p className="text-xs text-neutral-500 mb-0.5">Subnet Mask Disarankan</p>
+                  <p className="font-mono text-sm text-neutral-900 font-bold">{result.subnetMask}</p>
                 </div>
 
-                <div className="bg-muted/30 rounded-lg p-3 border border-border/50">
-                  <p className="text-xs text-muted-foreground mb-1">CIDR</p>
-                  <p className="font-mono text-sm text-secondary font-semibold">/{result.cidr}</p>
+                <div className="bg-neutral-50 rounded-lg p-2.5 border border-neutral-200">
+                  <p className="text-xs text-neutral-500 mb-0.5">Notasi CIDR</p>
+                  <p className="font-mono text-sm text-neutral-900 font-bold">/{result.cidr}</p>
                 </div>
 
-                <div className="bg-muted/30 rounded-lg p-3 border border-border/50">
-                  <p className="text-xs text-muted-foreground mb-1">Total Host</p>
-                  <p className="font-mono text-sm text-accent font-semibold">{result.totalHosts}</p>
+                <div className="bg-neutral-50 rounded-lg p-2.5 border border-neutral-200">
+                  <p className="text-xs text-neutral-500 mb-0.5">Total Alokasi Host</p>
+                  <p className="font-mono text-sm text-neutral-900 font-bold">{result.totalHosts.toLocaleString()}</p>
                 </div>
 
-                <div className="bg-muted/30 rounded-lg p-3 border border-border/50">
-                  <p className="text-xs text-muted-foreground mb-1">Host Usable</p>
-                  <p className="font-mono text-sm text-foreground font-semibold">{result.usableHosts}</p>
+                <div className="bg-neutral-50 rounded-lg p-2.5 border border-neutral-200">
+                  <p className="text-xs text-neutral-500 mb-0.5">Host Valid / Usable</p>
+                  <p className="font-mono text-sm text-neutral-900 font-bold">{result.usableHosts.toLocaleString()}</p>
                 </div>
               </div>
 
-              <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
-                <p className="text-xs text-blue-500 font-semibold">{result.recommendation}</p>
+              <div className="bg-neutral-100 border border-neutral-200 rounded-lg p-3">
+                <p className="text-xs text-neutral-800 font-medium">{result.recommendation}</p>
               </div>
             </motion.div>
           )}
