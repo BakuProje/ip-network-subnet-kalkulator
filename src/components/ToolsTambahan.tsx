@@ -246,9 +246,6 @@ const ToolsTambahan = () => {
               <h3 className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
                 Tools Tambahan
               </h3>
-              <span className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-blue-600 text-white border border-slate-900">
-                Peralatan Jaringan &amp; IP
-              </span>
             </div>
             <p className="text-xs text-slate-500 font-medium">
               Kalkulator Subnetting IPv4, Analisis Kelas, Konversi Format, dan Perencanaan Jaringan
@@ -258,9 +255,8 @@ const ToolsTambahan = () => {
 
         <div className="flex items-center gap-2">
           <ChevronDown
-            className={`w-5 h-5 text-slate-900 transition-transform duration-200 ${
-              isOpen ? "rotate-180" : ""
-            }`}
+            className={`w-5 h-5 text-slate-900 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+              }`}
           />
         </div>
       </button>
@@ -280,29 +276,29 @@ const ToolsTambahan = () => {
               {/* 1. KHUSUS: MASUKKAN ALAMAT IP (KALKULATOR SUBNETTING IPV4) */}
               {/* ======================================================== */}
               <div className="rounded-2xl border-2 border-slate-900 bg-gradient-to-br from-blue-50/70 via-white to-sky-50/70 p-4 sm:p-5 shadow-[3px_3px_0px_0px_#0f172a] space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-slate-200 pb-3">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-blue-600 border-2 border-slate-900 text-white flex items-center justify-center shrink-0 shadow-[2px_2px_0px_0px_#0f172a]">
-                      <Monitor className="w-4 h-4" />
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b-2 border-slate-200 pb-3.5">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-blue-600 border-2 border-slate-900 text-white flex items-center justify-center shrink-0 shadow-[2px_2px_0px_0px_#0f172a]">
+                      <Monitor className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider">
+                      <h4 className="text-sm sm:text-base font-black text-slate-900 uppercase tracking-wider">
                         MASUKKAN ALAMAT IP (Kalkulator Subnetting IPv4)
                       </h4>
-                      <p className="text-[11px] text-slate-600">
+                      <p className="text-xs text-slate-600 font-medium">
                         Kalkulasi Netmask, Network, Broadcast, Range Host, dan Visualisasi Biner
                       </p>
                     </div>
                   </div>
 
                   {/* Preset Pills */}
-                  <div className="flex flex-wrap items-center gap-1.5 self-start sm:self-auto">
-                    <span className="text-[10px] text-slate-500 font-bold">Preset:</span>
+                  <div className="flex flex-wrap items-center gap-1.5 pt-1 md:pt-0">
+                    <span className="text-xs text-slate-500 font-bold">Preset:</span>
                     {["192.168.1.1", "10.0.0.1", "172.16.10.5", "192.168.1.1/26"].map((p) => (
                       <button
                         key={p}
                         onClick={() => handlePresetIP(p)}
-                        className="px-2 py-0.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-mono text-[10px] font-bold shadow-2xs"
+                        className="px-2.5 py-1 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border-2 border-slate-900 font-mono text-xs font-bold shadow-[1.5px_1.5px_0px_0px_#0f172a] active:translate-y-0.5 transition-all"
                       >
                         {p}
                       </button>
@@ -311,7 +307,7 @@ const ToolsTambahan = () => {
                 </div>
 
                 {/* Input Field & Submit Trigger */}
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                   <input
                     type="text"
                     value={ipInput}
@@ -321,24 +317,26 @@ const ToolsTambahan = () => {
                     }}
                     onKeyDown={(e) => e.key === "Enter" && handleCalculateIP()}
                     placeholder="Ketik Alamat IP (contoh: 192.168.1.1 atau 10.0.0.1/24) ..."
-                    className="flex-1 bg-white border-2 border-slate-900 rounded-xl px-3.5 py-2.5 font-mono text-sm font-bold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 shadow-inner"
+                    className="flex-1 min-w-0 bg-white border-2 border-slate-900 rounded-xl px-3.5 py-2.5 font-mono text-xs sm:text-sm font-bold text-slate-900 placeholder:text-slate-400 placeholder:truncate focus:outline-none focus:ring-2 focus:ring-blue-600 shadow-inner"
                   />
-                  <button
-                    onClick={handleCalculateIP}
-                    title="Hitung Subnet"
-                    className="h-11 px-5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center neo-btn shrink-0"
-                  >
-                    Hitung
-                  </button>
-                  {ipInput && (
+                  <div className="flex items-center gap-2 shrink-0">
                     <button
-                      onClick={handleResetIP}
-                      title="Reset IP"
-                      className="w-11 h-11 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 border-2 border-slate-900 flex items-center justify-center neo-btn-sm shrink-0"
+                      onClick={handleCalculateIP}
+                      title="Hitung Subnet"
+                      className="flex-1 sm:flex-none h-11 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center neo-btn"
                     >
-                      <RotateCcw className="w-4 h-4" />
+                      Hitung
                     </button>
-                  )}
+                    {ipInput && (
+                      <button
+                        onClick={handleResetIP}
+                        title="Reset IP"
+                        className="w-11 h-11 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 border-2 border-slate-900 flex items-center justify-center neo-btn-sm shrink-0"
+                      >
+                        <RotateCcw className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 {/* Validation Feedback */}
@@ -350,14 +348,14 @@ const ToolsTambahan = () => {
 
                 {/* Detected IP summary badge */}
                 {ipInfo && (
-                  <div className="text-xs text-slate-900 font-bold bg-white py-2.5 px-3.5 rounded-xl border-2 border-slate-900 flex flex-wrap items-center justify-between gap-2 shadow-2xs">
+                  <div className="text-xs text-slate-900 font-bold bg-white py-2.5 px-3.5 rounded-xl border-2 border-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
                     <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                      <span className="break-words">
                         IP Terdeteksi: <strong className="font-mono text-blue-700">{ipInfo.ip}</strong> — Kelas {ipInfo.ipClass} ({ipInfo.classDescription})
                       </span>
                     </div>
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-1.5 self-start sm:self-auto shrink-0">
                       <span className="font-mono px-2 py-0.5 rounded bg-blue-600 text-white text-[11px]">
                         CIDR /{ipInfo.cidr}
                       </span>
