@@ -43,7 +43,7 @@ export const BASE_CONFIGS: Record<BaseType, BaseInfo> = {
   },
   hex: {
     id: "hex",
-    name: "Heksadesimal",
+    name: "Heksa",
     base: 16,
     prefix: "0x",
     allowedChars: /^[0-9a-fA-F]+([.,][0-9a-fA-F]+)?$/,
@@ -73,7 +73,7 @@ export const SLIDE_METHOD_CONFIGS: Record<string, SlideMethodInfo> = {
     slideFormula: "1291₁₀ ÷ 8 berulang hingga hasil bagi 0, baca sisa dari bawah ke atas",
   },
   "dec-hex": {
-    title: "Desimal ke Hexadesimal",
+    title: "Desimal ke Heksa",
     subtitle: "dibagi-bagi 16 (ambil sisa bagi dari bawah ke atas, 10..15 = A..F)",
     primaryTab: "divide",
     slideFormula: "1291₁₀ ÷ 16 berulang hingga hasil bagi 0, baca sisa dari bawah ke atas",
@@ -91,8 +91,8 @@ export const SLIDE_METHOD_CONFIGS: Record<string, SlideMethodInfo> = {
     slideFormula: "Kelompokkan per 3 bit dari kanan (bobot 2²=4, 2¹=2, 2⁰=1)",
   },
   "bin-hex": {
-    title: "Biner ke Hexadesimal",
-    subtitle: "dikelompokkan 4 bilangan biner menjadi 1 bilangan heksadesimal (bobot 8, 4, 2, 1)",
+    title: "Biner ke Heksa",
+    subtitle: "dikelompokkan 4 bilangan biner menjadi 1 bilangan heksa (bobot 8, 4, 2, 1)",
     primaryTab: "grouping",
     slideFormula: "Kelompokkan per 4 bit dari kanan (bobot 2³=8, 2²=4, 2¹=2, 2⁰=1)",
   },
@@ -109,28 +109,28 @@ export const SLIDE_METHOD_CONFIGS: Record<string, SlideMethodInfo> = {
     slideFormula: "Tiap 1 digit oktal diuraikan menjadi 3 bit biner",
   },
   "oct-hex": {
-    title: "Oktal ke Hexadesimal",
-    subtitle: "konversi bertahap: oktal → biner (3-bit) → hexadesimal (4-bit)",
+    title: "Oktal ke Heksa",
+    subtitle: "konversi bertahap: oktal → biner (3-bit) → heksa (4-bit)",
     primaryTab: "grouping",
-    slideFormula: "Tahap 1: Oktal ke Biner 3-bit, Tahap 2: Biner dikelompokkan 4-bit ke Hexadesimal",
+    slideFormula: "Tahap 1: Oktal ke Biner 3-bit, Tahap 2: Biner dikelompokkan 4-bit ke Heksa",
   },
   "hex-dec": {
-    title: "Hexadesimal ke Desimal",
+    title: "Heksa ke Desimal",
     subtitle: "dikali-kali 16 (bobot posisi pangkat 16ⁿ: 256, 16, 1)",
     primaryTab: "multiply",
     slideFormula: "Tiap digit dikalikan 16ⁿ sesuai posisinya lalu dijumlahkan",
   },
   "hex-bin": {
-    title: "Hexadesimal ke Biner",
-    subtitle: "diuraikan 1 bilangan heksadesimal menjadi 4 bilangan biner (bobot 8, 4, 2, 1)",
+    title: "Heksa ke Biner",
+    subtitle: "diuraikan 1 bilangan heksa menjadi 4 bilangan biner (bobot 8, 4, 2, 1)",
     primaryTab: "grouping",
-    slideFormula: "Tiap 1 digit heksadesimal diuraikan menjadi 4 bit biner",
+    slideFormula: "Tiap 1 digit heksa diuraikan menjadi 4 bit biner",
   },
   "hex-oct": {
-    title: "Hexadesimal ke Oktal",
-    subtitle: "konversi bertahap: hexadesimal → biner (4-bit) → oktal (3-bit)",
+    title: "Heksa ke Oktal",
+    subtitle: "konversi bertahap: heksa → biner (4-bit) → oktal (3-bit)",
     primaryTab: "grouping",
-    slideFormula: "Tahap 1: Hex ke Biner 4-bit, Tahap 2: Biner dikelompokkan 3-bit ke Oktal",
+    slideFormula: "Tahap 1: Heksa ke Biner 4-bit, Tahap 2: Biner dikelompokkan 3-bit ke Oktal",
   },
 };
 

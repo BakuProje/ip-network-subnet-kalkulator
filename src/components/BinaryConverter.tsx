@@ -6,6 +6,7 @@ import {
   Check,
   Calculator,
   Layers,
+  ArrowRight,
 } from "lucide-react";
 import {
   BaseType,
@@ -29,20 +30,20 @@ const QUICK_CONVERSIONS: Array<{
 }> = [
     { id: "dec-bin", from: "dec", to: "bin", label: "Desimal → Biner", sublabel: "dibagi-bagi 2", example: "1291" },
     { id: "dec-oct", from: "dec", to: "oct", label: "Desimal → Oktal", sublabel: "dibagi-bagi 8", example: "1291" },
-    { id: "dec-hex", from: "dec", to: "hex", label: "Desimal → Heksadesimal", sublabel: "dibagi-bagi 16", example: "1291" },
+    { id: "dec-hex", from: "dec", to: "hex", label: "Desimal → Heksa", sublabel: "dibagi-bagi 16", example: "1291" },
     { id: "bin-dec", from: "bin", to: "dec", label: "Biner → Desimal", sublabel: "dikali-kali 2", example: "10100001011" },
-    { id: "bin-oct", from: "bin", to: "oct", label: "Biner → Oktal", sublabel: "dikelompokkan 3 bit (4-2-1)", example: "10100001011" },
-    { id: "bin-hex", from: "bin", to: "hex", label: "Biner → Heksadesimal", sublabel: "dikelompokkan 4 bit (8-4-2-1)", example: "10100001011" },
+    { id: "bin-oct", from: "bin", to: "oct", label: "Biner → Oktal", sublabel: "kelompok 3 bit (4-2-1)", example: "10100001011" },
+    { id: "bin-hex", from: "bin", to: "hex", label: "Biner → Heksa", sublabel: "kelompok 4 bit (8-4-2-1)", example: "10100001011" },
     { id: "oct-dec", from: "oct", to: "dec", label: "Oktal → Desimal", sublabel: "dikali-kali 8", example: "2413" },
-    { id: "oct-bin", from: "oct", to: "bin", label: "Oktal → Biner", sublabel: "diuraikan 3 bit (4-2-1)", example: "2413" },
-    { id: "oct-hex", from: "oct", to: "hex", label: "Oktal → Heksadesimal", sublabel: "oktal → biner → heksadesimal", example: "2413" },
-    { id: "hex-dec", from: "hex", to: "dec", label: "Heksadesimal → Desimal", sublabel: "dikali-kali 16", example: "50B" },
-    { id: "hex-bin", from: "hex", to: "bin", label: "Heksadesimal → Biner", sublabel: "diuraikan 4 bit (8-4-2-1)", example: "50B" },
-    { id: "hex-oct", from: "hex", to: "oct", label: "Heksadesimal → Oktal", sublabel: "heksadesimal → biner → oktal", example: "50B" },
+    { id: "oct-bin", from: "oct", to: "bin", label: "Oktal → Biner", sublabel: "urai 3 bit (4-2-1)", example: "2413" },
+    { id: "oct-hex", from: "oct", to: "hex", label: "Oktal → Heksa", sublabel: "oktal → biner → heksa", example: "2413" },
+    { id: "hex-dec", from: "hex", to: "dec", label: "Heksa → Desimal", sublabel: "dikali-kali 16", example: "50B" },
+    { id: "hex-bin", from: "hex", to: "bin", label: "Heksa → Biner", sublabel: "urai 4 bit (8-4-2-1)", example: "50B" },
+    { id: "hex-oct", from: "hex", to: "oct", label: "Heksa → Oktal", sublabel: "heksa → biner → oktal", example: "50B" },
   ];
 
 const BinaryConverter = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [pairFrom, setPairFrom] = useState<BaseType>("dec");
   const [pairTo, setPairTo] = useState<BaseType>("bin");
   const [pairInput, setPairInput] = useState<string>("1291");
@@ -222,12 +223,12 @@ const BinaryConverter = () => {
     // Single-Stage Grouping (bin-oct, bin-hex, oct-bin, hex-bin)
     return (
       <div className="space-y-4">
-        <div className="p-4 sm:p-5 rounded-2xl bg-purple-50/70 border-2 border-slate-900 space-y-3.5 shadow-[3px_3px_0px_0px_#0f172a]">
+        <div className="p-4 sm:p-5 rounded-2xl bg-blue-50/70 border-2 border-slate-900 space-y-3.5 shadow-[3px_3px_0px_0px_#0f172a]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-slate-300 pb-3">
             <h4 className="font-black text-slate-900 text-xs sm:text-sm">
               {groupingData.title}
             </h4>
-            <span className="text-[11px] font-mono font-bold bg-white text-purple-900 px-2.5 py-0.5 rounded-lg border border-slate-300 self-start sm:self-auto shadow-2xs">
+            <span className="text-[11px] font-mono font-bold bg-white text-blue-900 px-2.5 py-0.5 rounded-lg border border-slate-300 self-start sm:self-auto shadow-2xs">
               {groupingData.direction}
             </span>
           </div>
@@ -247,12 +248,12 @@ const BinaryConverter = () => {
                   {grp.bits}
                 </div>
                 {grp.subWeights && (
-                  <div className="text-[10px] text-slate-500 font-mono font-bold bg-purple-50/80 py-0.5 px-1 rounded border border-purple-100">
+                  <div className="text-[10px] text-slate-500 font-mono font-bold bg-blue-50/80 py-0.5 px-1 rounded border border-blue-100">
                     Bobot: {grp.subWeights}
                   </div>
                 )}
                 <div className="text-slate-400 text-xs font-bold leading-none">↓</div>
-                <div className="font-mono font-black text-purple-700 text-lg bg-purple-50/50 py-0.5 rounded-lg border border-purple-200">
+                <div className="font-mono font-black text-blue-700 text-lg bg-blue-50/50 py-0.5 rounded-lg border border-blue-200">
                   {grp.mappedValue}
                 </div>
                 <p className="text-[10px] text-slate-600 font-mono line-clamp-2">
@@ -264,9 +265,9 @@ const BinaryConverter = () => {
 
           <div className="p-3.5 rounded-xl bg-white border-2 border-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
             <span className="text-slate-900 font-bold text-xs">Gabungan Seluruh Digit:</span>
-            <div className="font-mono font-black text-purple-950 text-sm sm:text-base bg-purple-50 px-3.5 py-1.5 rounded-lg border-2 border-purple-800 shadow-xs self-start sm:self-auto">
+            <div className="font-mono font-black text-blue-950 text-sm sm:text-base bg-blue-50 px-3.5 py-1.5 rounded-lg border-2 border-blue-800 shadow-xs self-start sm:self-auto">
               {groupingData.combinedResult}
-              <sub className="text-xs font-bold text-purple-700 ml-1">
+              <sub className="text-xs font-bold text-blue-700 ml-1">
                 {BASE_CONFIGS[stepsExplanation.toBase].base}
               </sub>
             </div>
@@ -284,7 +285,7 @@ const BinaryConverter = () => {
         className="w-full flex items-center justify-between p-4 sm:p-5 bg-white hover:bg-slate-50 transition-colors border-b-2 border-slate-900 text-left"
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-purple-600 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] flex items-center justify-center text-white shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-blue-600 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] flex items-center justify-center text-white shrink-0">
             <Calculator className="w-5 h-5" />
           </div>
           <div>
@@ -337,16 +338,29 @@ const BinaryConverter = () => {
                         key={item.id}
                         onClick={() => handleSelectConversion(item)}
                         className={`p-2.5 rounded-xl border-2 text-left transition-all relative overflow-hidden flex flex-col justify-between ${isSelected
-                          ? "bg-purple-50 border-purple-900 shadow-[2px_2px_0px_0px_#581c87]"
+                          ? "bg-blue-50 border-blue-900 shadow-[2px_2px_0px_0px_#1e3a8a]"
                           : "bg-white border-slate-900 hover:bg-slate-50 shadow-[1.5px_1.5px_0px_0px_#0f172a]"
                           }`}
                       >
-                        <span className="text-[11px] font-black text-slate-900 truncate">
-                          {item.label}
-                        </span>
-                        <span className="text-[10px] text-slate-500 mt-1 font-medium line-clamp-1">
-                          {item.sublabel}
-                        </span>
+                        <div className="text-[11px] font-black text-slate-900 truncate flex items-center gap-1.5">
+                          <span>{BASE_CONFIGS[item.from].name}</span>
+                          <ArrowRight className="w-3.5 h-3.5 text-blue-600 shrink-0 stroke-[2.5]" />
+                          <span>{BASE_CONFIGS[item.to].name}</span>
+                        </div>
+                        <div className="text-[10px] text-slate-500 mt-1 font-medium line-clamp-1 flex items-center gap-1">
+                          {item.sublabel.includes("→") ? (
+                            item.sublabel.split("→").map((part, idx, arr) => (
+                              <span key={idx} className="inline-flex items-center gap-0.5">
+                                <span>{part.trim()}</span>
+                                {idx < arr.length - 1 && (
+                                  <ArrowRight className="w-2.5 h-2.5 text-slate-400 shrink-0 inline" />
+                                )}
+                              </span>
+                            ))
+                          ) : (
+                            <span>{item.sublabel}</span>
+                          )}
+                        </div>
                       </button>
                     );
                   })}
@@ -465,17 +479,9 @@ const BinaryConverter = () => {
                     onClick={() => setShowSteps(!showSteps)}
                     className="w-full flex items-center justify-between p-4 sm:p-5 bg-slate-50 hover:bg-slate-100 transition-colors border-b-2 border-slate-900 text-left"
                   >
-                    <div className="space-y-1 pr-2">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <p className="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wider">
-                          {stepsExplanation.slideMethod.title || stepsExplanation.title} — CARA KERJA
-                        </p>
-                        <span className="px-2 py-0.5 rounded bg-purple-600 text-white font-mono text-[10px] font-bold">
-                          {stepsExplanation.slideMethod.subtitle}
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-slate-600">
-                        Metode: <strong className="text-slate-900">{stepsExplanation.slideMethod.title}</strong> ({stepsExplanation.slideMethod.subtitle})
+                    <div className="pr-2">
+                      <p className="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wider">
+                        {stepsExplanation.slideMethod.title || stepsExplanation.title} — CARA KERJA
                       </p>
                     </div>
                     <ChevronDown
@@ -500,7 +506,7 @@ const BinaryConverter = () => {
                             <button
                               onClick={() => setActiveMethodTab("slide")}
                               className={`w-full sm:w-auto px-3.5 py-2 rounded-lg font-black text-xs transition-all flex items-center justify-center gap-1.5 ${activeMethodTab === "slide"
-                                ? "bg-purple-600 text-white border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]"
+                                ? "bg-blue-600 text-white border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]"
                                 : "bg-white text-slate-800 hover:bg-slate-50 border border-slate-300"
                                 }`}
                             >
@@ -553,19 +559,19 @@ const BinaryConverter = () => {
                               animate={{ opacity: 1, y: 0 }}
                               className="space-y-4"
                             >
-                              <div className="p-3.5 sm:p-4 rounded-xl bg-purple-50 border-2 border-purple-900 shadow-[2px_2px_0px_0px_#581c87] space-y-1.5">
+                              <div className="p-3.5 sm:p-4 rounded-xl bg-blue-50 border-2 border-blue-900 shadow-[2px_2px_0px_0px_#1e3a8a] space-y-1.5">
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
-                                  <span className="font-black text-purple-950 text-sm">
+                                  <span className="font-black text-blue-950 text-sm">
                                     {stepsExplanation.slideMethod.title}
                                   </span>
-                                  <span className="font-bold text-xs bg-purple-200 text-purple-900 px-2 py-0.5 rounded border border-purple-400 self-start sm:self-auto">
+                                  <span className="font-bold text-xs bg-blue-100 text-blue-900 px-2 py-0.5 rounded border border-blue-300 self-start sm:self-auto">
                                     {stepsExplanation.slideMethod.subtitle}
                                   </span>
                                 </div>
-                                <p className="text-xs text-purple-900 font-mono break-all">
+                                <p className="text-xs text-blue-900 font-mono break-all">
                                   {stepsExplanation.inputClean}
                                   <sub>{BASE_CONFIGS[stepsExplanation.fromBase].base}</sub> ={" "}
-                                  <strong className="text-purple-950">{stepsExplanation.outputClean}</strong>
+                                  <strong className="text-blue-950">{stepsExplanation.outputClean}</strong>
                                   <sub>{BASE_CONFIGS[stepsExplanation.toBase].base}</sub>
                                 </p>
                               </div>
@@ -586,7 +592,7 @@ const BinaryConverter = () => {
                                       <tbody className="divide-y border-slate-200 text-xs">
                                         {stepsExplanation.divisionData.rows.map((row, idx) => (
                                           <tr key={idx} className="hover:bg-slate-50">
-                                            <td className="p-2.5 font-bold text-purple-700">
+                                            <td className="p-2.5 font-bold text-blue-700">
                                               {stepsExplanation.divisionData.divisor}
                                             </td>
                                             <td className="p-2.5 font-bold text-slate-900">
@@ -640,7 +646,7 @@ const BinaryConverter = () => {
                                           <tr key={i} className="hover:bg-slate-50">
                                             <td className="p-2.5 font-black text-blue-700">{r.digit}</td>
                                             <td className="p-2.5 text-slate-500">Posisi {r.power}</td>
-                                            <td className="p-2.5 text-purple-700 font-bold">{r.powerValue}</td>
+                                            <td className="p-2.5 text-blue-700 font-bold">{r.powerValue}</td>
                                             <td className="p-2.5 text-slate-700">{r.expanded}</td>
                                             <td className="p-2.5 font-black text-emerald-700 text-right">
                                               {r.result}
@@ -700,7 +706,7 @@ const BinaryConverter = () => {
                                           <td className="p-2.5 font-bold text-blue-700">{r.digit}</td>
                                           <td className="p-2.5 text-slate-900">{r.digitValue}</td>
                                           <td className="p-2.5 text-slate-500">{r.power}</td>
-                                          <td className="p-2.5 text-purple-700 font-bold">{r.powerValue}</td>
+                                          <td className="p-2.5 text-blue-700 font-bold">{r.powerValue}</td>
                                           <td className="p-2.5 text-slate-600">{r.expanded}</td>
                                           <td className="p-2.5 font-black text-emerald-700 text-right">
                                             {r.result}
@@ -722,8 +728,8 @@ const BinaryConverter = () => {
                                   <span className="text-blue-700 font-bold mr-1">=</span>
                                   {stepsExplanation.multiplicationData.formulaLine2}
                                 </div>
-                                <div className="text-purple-700 break-words whitespace-normal leading-relaxed font-bold">
-                                  <span className="text-purple-700 font-bold mr-1">=</span>
+                                <div className="text-blue-700 break-words whitespace-normal leading-relaxed font-bold">
+                                  <span className="text-blue-700 font-bold mr-1">=</span>
                                   {stepsExplanation.multiplicationData.formulaLine3}
                                 </div>
                                 <div className="pt-2 border-t-2 border-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm font-black text-slate-900">
@@ -809,7 +815,7 @@ const BinaryConverter = () => {
                                               0.{frow.inputFraction} × {frow.multiplier}
                                             </td>
                                             <td className="p-2.5 text-blue-700 font-bold">{frow.multiplied}</td>
-                                            <td className="p-2.5 font-black text-purple-700">'{frow.integerDigit}'</td>
+                                            <td className="p-2.5 font-black text-blue-700">'{frow.integerDigit}'</td>
                                             <td className="p-2.5 text-right font-mono text-slate-600">0.{frow.remainderFraction}</td>
                                           </tr>
                                         ))}

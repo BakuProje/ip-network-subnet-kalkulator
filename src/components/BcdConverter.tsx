@@ -7,6 +7,7 @@ import {
   ChevronDown,
   AlertTriangle,
   Cpu,
+  ArrowRight,
 } from "lucide-react";
 import {
   convertDecimalToBcd,
@@ -83,24 +84,28 @@ const BcdConverter = () => {
             className="overflow-hidden"
           >
             <div className="p-4 sm:p-6 space-y-5">
-              <div className="flex items-center gap-2 p-1.5 bg-slate-100 rounded-xl border-2 border-slate-900 w-fit">
+              <div className="flex items-center gap-1.5 p-1.5 bg-slate-100 rounded-xl border-2 border-slate-900 w-fit">
                 <button
                   onClick={() => setActiveTab("decToBcd")}
-                  className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === "decToBcd"
-                      ? "bg-amber-500 text-slate-950 border border-slate-900 shadow-xs"
-                      : "text-slate-700 hover:bg-slate-200"
+                  className={`px-3.5 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-2 ${activeTab === "decToBcd"
+                      ? "bg-amber-500 text-slate-950 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]"
+                      : "text-slate-800 hover:bg-slate-200 border-2 border-transparent"
                     }`}
                 >
-                  Desimal → BCD
+                  <span>Desimal</span>
+                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5] shrink-0" />
+                  <span>BCD</span>
                 </button>
                 <button
                   onClick={() => setActiveTab("bcdToDec")}
-                  className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === "bcdToDec"
-                      ? "bg-amber-500 text-slate-950 border border-slate-900 shadow-xs"
-                      : "text-slate-700 hover:bg-slate-200"
+                  className={`px-3.5 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-2 ${activeTab === "bcdToDec"
+                      ? "bg-amber-500 text-slate-950 border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]"
+                      : "text-slate-800 hover:bg-slate-200 border-2 border-transparent"
                     }`}
                 >
-                  BCD → Desimal
+                  <span>BCD</span>
+                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5] shrink-0" />
+                  <span>Desimal</span>
                 </button>
               </div>
 

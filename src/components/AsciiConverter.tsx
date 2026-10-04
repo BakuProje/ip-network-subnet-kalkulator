@@ -5,6 +5,7 @@ import {
   Copy,
   Check,
   ChevronDown,
+  ArrowRight,
 } from "lucide-react";
 import {
   convertTextToAscii,
@@ -83,24 +84,28 @@ const AsciiConverter = () => {
           >
             <div className="p-4 sm:p-6 space-y-5">
               {/* Tab Selector: Teks to ASCII vs ASCII to Teks */}
-              <div className="flex items-center gap-2 p-1.5 bg-slate-100 rounded-xl border-2 border-slate-900 w-fit">
+              <div className="flex items-center gap-1.5 p-1.5 bg-slate-100 rounded-xl border-2 border-slate-900 w-fit">
                 <button
                   onClick={() => setActiveTab("textToAscii")}
-                  className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === "textToAscii"
-                    ? "bg-blue-600 text-white border border-slate-900 shadow-xs"
-                    : "text-slate-700 hover:bg-slate-200"
+                  className={`px-3.5 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-2 ${activeTab === "textToAscii"
+                    ? "bg-blue-600 text-white border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]"
+                    : "text-slate-800 hover:bg-slate-200 border-2 border-transparent"
                     }`}
                 >
-                  Teks → ASCII
+                  <span>Teks</span>
+                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5] shrink-0" />
+                  <span>ASCII</span>
                 </button>
                 <button
                   onClick={() => setActiveTab("asciiToText")}
-                  className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === "asciiToText"
-                    ? "bg-blue-600 text-white border border-slate-900 shadow-xs"
-                    : "text-slate-700 hover:bg-slate-200"
+                  className={`px-3.5 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-2 ${activeTab === "asciiToText"
+                    ? "bg-blue-600 text-white border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a]"
+                    : "text-slate-800 hover:bg-slate-200 border-2 border-transparent"
                     }`}
                 >
-                  ASCII → Teks
+                  <span>ASCII</span>
+                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5] shrink-0" />
+                  <span>Teks</span>
                 </button>
               </div>
 
